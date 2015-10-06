@@ -1,52 +1,49 @@
-package im.lew.skyinvaders;
-
+import android.app.Activity;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.Display;
 
-public class SkyInvadersActivity extends AppCompatActivity {
+// SkyInvadersActivity is the entry point to the game.
+// It will handle the lifecycle of the game by calling
+// methods of skyInvadersView when prompted to so by the OS.
+public class SkyInvadersActivity extends Activity {
+
+    // skyInvadersView will be the view of the game
+    // It will also hold the logic of the game
+    // and respond to screen touches as well
+    SkyInvadersView skyInvadersView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sky_invaders);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Get a Display object to access screen details
+        Display display = getWindowManager().getDefaultDisplay();
+        // Load the resolution into a Point object
+        Point size = new Point();
+        display.getSize(size);
+
+        // Initialize gameView and set it as the view
+        skyInvadersView = new SkyInvadersView(this, size.x, size.y);
+        setContentView(skyInvadersView);
+
     }
 
+    // This method executes when the player starts the game
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sky_invaders, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+
+        // Tell the gameView resume method to execute
+        skyInvadersView.resume();
     }
 
+    // This method executes when the player quits the game
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void onPause() {
+        super.onPause();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        // Tell the gameView pause method to execute
+        skyInvadersView.pause();
     }
 }
