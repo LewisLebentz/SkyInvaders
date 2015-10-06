@@ -1,7 +1,7 @@
 /**
  * Created by lewis.lebentz on 06/10/2015.
  */
-package com.gamecodeschool.spaceinvaders2;
+//package im.lew.skyinvaders;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;

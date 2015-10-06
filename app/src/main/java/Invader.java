@@ -1,3 +1,12 @@
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.RectF;
+
+import java.util.Random;
+
+import im.lew.skyinvaders.R;
+
 /**
  * Created by lewis.lebentz on 06/10/2015.
  */
